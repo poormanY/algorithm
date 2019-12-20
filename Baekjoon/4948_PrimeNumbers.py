@@ -1,7 +1,4 @@
-import sys
-from collections import defaultdict
-
-import os
+import sys, os
 sys.path.append(os.path.abspath('../algorithm/algorithms/PrimeNumbers'))
 from SieveOfEratosthenes import Prime
 

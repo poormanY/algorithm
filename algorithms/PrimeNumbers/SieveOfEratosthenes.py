@@ -4,10 +4,9 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
-from collections import defaultdict
-
 # https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 # 에라토스테네스의 체
+from collections import defaultdict
 class Prime:
   def __init__(self):
     self.primes = defaultdict(lambda: True)

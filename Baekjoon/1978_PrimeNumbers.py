@@ -1,12 +1,9 @@
-import sys
-input = sys.stdin.readline
-from collections import defaultdict
-
-import os
+import sys, os
 sys.path.append(os.path.abspath('../algorithm/algorithms/PrimeNumbers'))
 from SieveOfEratosthenes import Prime
 
 def main():
+  input = sys.stdin.readline
   N = int(input())
   numbers = list(map(int,input().split()))
 
