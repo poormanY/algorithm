@@ -11,14 +11,17 @@ from collections import defaultdict
 class Prime:
   def __init__(self):
     self.primes = defaultdict(lambda: True)
+    self.primes[1] = False
 
-  def prime_list(self, end, start=2):
-    start = max(2, start)
+  def execute(self, end, start=2):
     m = int(end ** 0.5)
     for i in range(2, m+1):
       if self.primes[i] == True:
         for j in range(i+i, end+1, i):
           self.primes[j] = False
+
+  def prime_list(self, end, start=2):
+    self.execute(end, start)
     return [i for i in range(start,end+1) if self.primes[i] == True]
 
 # Main Function
