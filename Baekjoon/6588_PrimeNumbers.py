@@ -17,4 +17,5 @@ def main():
       if p.primes[n-x] == True:
         print("%s = %s + %s" % (n,x,n-x))
         break
+
 main()

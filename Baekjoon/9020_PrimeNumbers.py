@@ -14,4 +14,5 @@ def main():
       if (p.primes[x] == True) and (p.primes[n-x] == True):
         print(' '.join(map(str,[x,n-x])))
         break
+
 main()
