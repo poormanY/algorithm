@@ -2,9 +2,10 @@ import sys, os
 sys.path.append(os.path.abspath('../algorithm/algorithms/BFS'))
 from HideAndSeek import HideSeek
 
-
+import sys
 def main():
-  start, end = 5, 17
+  input = sys.stdin.readline
+  start, end = list(map(int, input().split()))
   walk = 1
   fly = 2
 
@@ -12,5 +13,4 @@ def main():
   count = hs.count()
   print(count)
 
-if __name__ == '__main__':
-  main()
+main()

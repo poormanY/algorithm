@@ -13,33 +13,27 @@ class HideSeek():
     self.fly = fly
 
   def count(self):
-    if self.start == self.end:
-      return 0
-    visited = defaultdict(lambda: False)
-
-    cur_queue = deque()
-    next_queue = deque([self.start])
-    visited[self.start] = True
-    cnt = 0
-    while(next_queue):
-      cur_queue = next_queue
-      next_queue = deque()
-      cnt += 1
-      while(cur_queue):
-        x = cur_queue.popleft()
-        for y in [x-self.walk,x+self.walk,x*self.fly]:
-          if (y < 1) or (y > self.end + 1):
-            continue
-          if visited[y] == False:
-            visited[y] = True
-            next_queue.append(y)
-            if y == self.end:
-              return cnt
-
+    visited = defaultdict(int)
+    queue = deque([self.start])
+    visited[self.start] = 1
+    while(queue):
+      x = queue.popleft()
+      if x == self.end:
+        return visited[x] - 1
+      yy = [x-self.walk, x+self.walk, x*self.fly]
+      if x > self.end:
+        yy = [x-self.walk]
+      for y in yy:
+        if y < 0:
+          continue
+        if visited[y] > 0:
+          continue
+        visited[y] = visited[x] + 1
+        queue.append(y)
 
 def main():
   start, end = 5, 17
-  start, end = 5, 14
+  start, end = 10, 0
   walk = 1
   fly = 2
 
