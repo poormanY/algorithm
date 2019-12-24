@@ -36,20 +36,18 @@ class MazeBFS():
 
     cur_queue = deque()
     next_queue = deque([[s_x, s_y]])
-    count = 1
-    self.route[s_y][s_x] = count
+    self.route[s_y][s_x] = 1
     while(next_queue):
       cur_queue = next_queue
       next_queue = deque()
-      count += 1
       while(cur_queue):
         x, y = cur_queue.popleft()
         for _x, _y in [[1,0],[-1,0],[0,1],[0,-1]]:
           if self.is_route(x+_x, y+_y):
             next_queue.append([x+_x,y+_y])
-            self.route[y+_y][x+_x] = count
+            self.route[y+_y][x+_x] = self.route[y][x] + 1
             if end == [x+_x, y+_y]:
-              return count
+              return self.route[y+_y][x+_x]
 
 def main():
   width, height = 6, 4
