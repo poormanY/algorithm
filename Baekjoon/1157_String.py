@@ -10,8 +10,10 @@ def main():
   s = input().strip()
   w = Words()
   lst = w.most_common(s.upper())
-  vals = list(map(lambda x: x[1], lst))
-  if vals[0] == vals[1]:
+  val = lst[0][0]
+  cnts = list(map(lambda x: x[1], lst))
+
+  if (len(cnts) > 1) and (cnts[0] == cnts[1]):
     print('?')
   else:
     print(lst[0][0])
