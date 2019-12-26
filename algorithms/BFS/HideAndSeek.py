@@ -34,13 +34,43 @@ class HideSeek():
           return visited[y] - 1
         queue.append(y)
 
+  def graph2lst(self, graph, start, end):
+    queue = deque([[end]])
+    while(queue):
+      if queue[0][0] == start:
+        break
+      lst = queue.popleft()
+      x = lst[0]
+      for y in graph[x]:
+        queue.append([y] + lst)
+    return queue
+
   def route(self):
-    visited = defaultdict(list)
-    cur_queue = deque()
-    next_queue = deque([self.start])
+    visited = defaultdict(int)
+    visited[self.start] = 1
+    graph = defaultdict(set)
+
+    queue = deque([self.start])
+    max_count = self.start // self.walk + 1
     while(queue):
       x = queue.popleft()
-
+      if visited[x] > max_count:
+        break
+      yy = [x-self.walk, x+self.walk, x*self.fly]
+      if x > self.end:
+        yy = [x-self.walk]
+      for y in yy:
+        if y < 0:
+          continue
+        if (visited[y] > 0) and (visited[y] <= visited[x]):
+          continue
+        visited[y] = visited[x] + 1
+        graph[y].add(x)
+        queue.append(y)
+        if y == self.end:
+          max_count = visited[y]
+    lst = self.graph2lst(graph, self.start, self.end)
+    return lst
 
   def route2(self):
     cur_visited = defaultdict(int)
@@ -74,7 +104,7 @@ class HideSeek():
 
 def main():
   start, end = 5, 17
-  start, end = 3, 150
+  start, end = 5, 15
   walk = 1
   fly = 2
 
