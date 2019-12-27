@@ -23,10 +23,21 @@ def main():
     x = queue.popleft()
     if visited[x] >= max_visit:
       continue
-    for y in [x-walk,x+walk,x*fly]:
+    y = x*fly
+    while(0 < y < max_val):
+      if 0 < visited[y] <= visited[x]:
+        y = y*fly
+        continue
+      if visited[y] == 0:
+        visited[y] = visited[x]
+        queue.append(y)
+      ways[y] = ways[x]
+      y = y*fly
+
+    for y in [x-walk,x+walk]:
       if y < 0 or y >= max_val:
         continue
-      if 0 < visited[y] and visited[y] <= visited[x]:
+      if 0 < visited[y] <= visited[x]:
         continue
       if visited[y] == 0:
         visited[y] = visited[x] + 1
@@ -37,6 +48,6 @@ def main():
   count_visit = visited[end]-1
   count_ways = ways[end]
   print(count_visit)
-  print(count_ways)
-
+  #print(count_ways)
+  
 main()

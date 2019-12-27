@@ -72,36 +72,6 @@ class HideSeek():
     lst = self.graph2lst(graph, self.start, self.end)
     return lst
 
-  def route2(self):
-    cur_visited = defaultdict(int)
-    next_visited = defaultdict(int)
-    next_visited[self.start] = 1
-    cur_queue = deque()
-    next_queue = deque([[self.start]])
-    route_end = False
-    while(next_queue):
-      cur_queue, next_queue = next_queue, deque()
-      cur_visited = copy(next_visited)  # deep copy
-      while(cur_queue):
-        q = cur_queue.popleft()
-        x = q[-1]
-        yy = [x-self.walk, x+self.walk, x*self.fly]
-        if x > self.end:
-          yy = [x-self.walk]
-        for y in yy:
-          if y < 0:
-            continue
-          if cur_visited[y] > 0:
-            continue
-          next_q = q + [y]
-          next_queue.append(next_q)
-          next_visited[y] = next_visited[x] + 1
-          if y == self.end:
-            route_end = True
-            yield next_q
-      if route_end == True:
-        break
-
 def main():
   start, end = 5, 17
   start, end = 5, 15
@@ -111,12 +81,14 @@ def main():
   hs = HideSeek(start, end, walk, fly)
   count = hs.count()
   print(count)
-  route = list(hs.route())
+  route = hs.route()
   print(route)
   count = len(route[0])-1
   routeCnt = len(route)
   print(count)
   print(routeCnt)
+  for r in route:
+    print(' '.join(map(str, r)))
 
 if __name__ == '__main__':
   main()
