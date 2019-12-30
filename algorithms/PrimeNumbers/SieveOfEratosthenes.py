@@ -26,7 +26,7 @@ class Prime:
 def main():
   p = Prime()
   start = 1
-  end = 100
+  end = 113
   x = p.prime_list(start=start, end=end)
   print(len(x), x)
 

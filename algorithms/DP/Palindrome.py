@@ -3,58 +3,48 @@ import sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
-'''
-7
-1 2 1 3 1 2 1
-4
-1 3
-2 5
-3 3
-5 7
-예제 출력 1
-1
-0
-1
-1
-'''
-
 class DP():
   def __init__(self):
     self.isPalidrome = []
+    self.max_n = 0
 
   def palidrome(self, S):
     n = len(S)
-    self.isPalidrome = [[0]*n for i in range(n)]
+    self.isPalidrome = [[0 for i in range(n)] for j in range(n)]
+    # len 1
     for i in range(n):
       self.isPalidrome[i][i] = 1
+      self.max_n = 1
+    # len 2
     for i in range(n-1):
-      if S[i] == S[i+1]:
-        self.isPalidrome[i][i+1] = 1
-    for d in range(2,n):
+      j = i + 1
+      if S[i] == S[j]:
+        self.isPalidrome[i][j] = 1
+        self.max_n = 2
+    # len >= 3
+    for d in range(2, n):
       for i in range(n-d):
         j = i + d
-        if S[i] != S[j]:
-          continue
-        if self.isPalidrome[i+1][j-1] == 0:
-          continue
-        self.isPalidrome[i][j] = 1
+        if S[i] == S[j] and self.isPalidrome[i+1][j-1] == 1:
+          self.isPalidrome[i][j] = 1
+          self.max_n = d + 1
 
   def isValid(self, s, e):
     return self.isPalidrome[s-1][e-1]
 
+  def max(self):
+    return self.max_n
+
 import sys
 def main():
-  input = sys.stdin.readline
-  n = int(input())
-  S = ''.join(input().split())
-  T = int(input())
+  S = '1213121'
 
   d = DP()
   d.palidrome(S)
-  for line in sys.stdin:
-    s,e = map(int, line.split())
-    v = d.isValid(s,e)
-    print(v)
+  for i in range(1,len(S)+1):
+    for j in range(1,len(S)+1):
+      if d.isValid(i,j) == 1:
+        print(i,j,S[i-1:j])
 
 if __name__ == '__main__':
   main()
