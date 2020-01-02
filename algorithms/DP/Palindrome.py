@@ -35,7 +35,6 @@ class DP():
   def max(self):
     return self.max_n
 
-import sys
 def main():
   S = '1213121'
 

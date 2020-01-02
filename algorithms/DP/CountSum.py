@@ -15,7 +15,6 @@ class DP():
         count[i] += count[x]
     return count[n]
 
-import sys
 def main():
   args = [1,2,3]
   for line in range(11):
